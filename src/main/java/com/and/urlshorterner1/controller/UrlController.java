@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 @RestController
 @RequestMapping(value = "/urlShortener")
 public class UrlController {
@@ -25,5 +28,12 @@ public class UrlController {
     public ResponseEntity getUrl(@PathVariable String key) {
         String url = urlManager.getUrlByKey(key);
         return ResponseEntity.ok(url);
+    }
+
+    @RequestMapping(value = "/{key}", method = RequestMethod.GET)
+    @ResponseBody
+    public void getUrlRedirect(@PathVariable String key, HttpServletResponse response) throws IOException {
+        String url = urlManager.getUrlByKey(key);
+        response.sendRedirect(url);
     }
 }
