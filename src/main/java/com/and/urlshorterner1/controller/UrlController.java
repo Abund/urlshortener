@@ -30,7 +30,7 @@ public class UrlController {
         return ResponseEntity.ok(url);
     }
 
-    @RequestMapping(value = "/{key}", method = RequestMethod.GET)
+    @RequestMapping(value = "/withredirect/{key}", method = RequestMethod.GET)
     @ResponseBody
     public void getUrlRedirect(@PathVariable String key, HttpServletResponse response) throws IOException {
         String url = urlManager.getUrlByKey(key);
